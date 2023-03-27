@@ -1,0 +1,71 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: glue_database
+  labels:
+    app: glue_database
+spec:
+  containers:
+    - name: glue_database
+      image: 'vijay165/glue_database'
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: glue_database
+spec:
+  selector:
+    app: glue_database
+  ports:
+    - port: 8000
+---
+
+
+
+# kind: Pod
+# apiVersion: v1
+# metadata:
+#   name: bar-app
+#   labels:
+#     app: bar
+# spec:
+#   containers:
+#     - name: bar-app
+#       image: 'vijay165/myapp2'
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: bar-service
+# spec:
+#   selector:
+#     app: bar
+#   ports:
+#     - port: 8000
+# ---
+
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /app
+            pathType: Prefix
+            backend:
+              service:
+                name: glue_database
+                port:
+                  number: 8000
+          # - path: /bar
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: bar-service
+          #       port:
+          #         number: 8000
+---
