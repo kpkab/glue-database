@@ -2,7 +2,8 @@ from fastapi import FastAPI, HTTPException, Request
 from dotenv import dotenv_values
 from fastapi.responses import JSONResponse
 import boto3
-from pydantic import BaseModel
+
+from app.model import Glue_database
 
 config = dotenv_values(".env")
 ACCESS_ID = config.get("aws_access_key_id")
@@ -15,11 +16,6 @@ client = boto3.client('glue', aws_access_key_id=ACCESS_ID,
 
 
 app = FastAPI(openapi_url="/app/openapi.json",docs_url="/app/docs")
-
-
-class Glue_database(BaseModel):
-    Name: str
-    Description: str
 
 @app.post('/app/create_database')
 async def create_database(glue_database:Glue_database, request: Request):
