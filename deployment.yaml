@@ -1,19 +1,19 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: glue_database
+  name: glue-database
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: glue_database
+      app: glue-database
   template:
     metadata:
       labels:
-        app: glue_database
+        app: glue-database
     spec:
       containers:
-      - name: glue_database
+      - name: glue-database
         image:  vijay165/glue_database
         ports:
         - containerPort: 80

@@ -1,10 +1,9 @@
 import boto3
 import botocore
-from app.model import (ErrorResponse, ExceptionResponse, Glue_database,
+from model import (ErrorResponse, ExceptionResponse, Glue_database,
                        SuccessResponse)
 from dotenv import dotenv_values
-from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI
 
 config = dotenv_values(".env")
 ACCESS_ID = config.get("aws_access_key_id")
